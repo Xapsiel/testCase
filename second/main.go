@@ -6,23 +6,28 @@ func main() {
 	var n int
 	fmt.Println("Введите длину массива")
 	fmt.Scanln(&n)
+	array := solution(n)
+	fmt.Println(array)
+
+}
+
+func solution(n int) []int {
 	var array = makeArray(n)
 	var all_number [][]int
 	for _, elem := range array {
 		all_number = append(all_number, findDel(elem))
 	}
-	var result map[int][]int = make(map[int][]int, 1000)
+	var counter map[int]int = make(map[int]int, 1000)
 	var result_array []int
 	for _, elem := range all_number {
 		for _, el := range elem {
-			result[el] = append(result[el], 1)
-			if len(result[el]) == len(array) {
+			counter[el]++
+			if counter[el] == len(array) {
 				result_array = append(result_array, el)
 			}
 		}
 	}
-	fmt.Println(result_array)
-
+	return result_array
 }
 func findDel(n int) []int {
 	d := 2
@@ -42,8 +47,10 @@ func findDel(n int) []int {
 
 func makeArray(n int) []int {
 	var array []int
+
 	for i := 0; i < n; i++ {
 		var number int
+		fmt.Printf("Введите %d элемент массива\n", i)
 		fmt.Scan(&number)
 		array = append(array, number)
 	}
